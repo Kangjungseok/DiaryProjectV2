@@ -50,7 +50,11 @@ public class AcessDBTableModel {
 			e.printStackTrace();
 		}
 		
-		DefaultTableModel dtm2 = new DefaultTableModel(data, columnNames);
+		
+		//DefaultTableModel dtm2 = new DefaultTableModel(data, columnNames);
+		
+		DefaultTableModel dtm2 = new DefaultTableModel(data, columnNames) ;
+		
 		this.dtm = dtm2;
 
 	}

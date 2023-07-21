@@ -56,11 +56,20 @@ public class DiaryDTO extends DTO{
 		String pkNames = pk1 + ", " + pk2;
 		return pkNames;
 	}
-
+	
 	@Override
 	public String getPKValues() {
 		String pkValues = this.getSpaceCode() + ", " + this.getTaskIndex();
 		return pkValues;
+	}
+	
+	public String getPk1() {
+		String pk1 = this.spaceCode;
+		return pk1;
+	}
+	public String getPk2Name() {
+		String pk2 = this.pk2;
+		return pk2;
 	}
 
 	@Override

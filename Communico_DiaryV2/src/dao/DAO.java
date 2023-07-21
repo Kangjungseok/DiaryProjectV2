@@ -91,6 +91,28 @@ public class DAO {
 		return result;
 	}
 	
+	public int readMaxTIValueAt(DiaryDTO dto, String tableName) {
+	    int maxPkVal = 0;
+	    String pk = "taskIndex";
+	    String spaceCodeVal = dto.getSpaceCode();
+	    Connection conn = getConnection();
+	    String sql = "SELECT MAX(" + pk + ") FROM " + tableName + " WHERE spaceCode = ?";
+	    try {
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, spaceCodeVal);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            maxPkVal = rs.getInt(1);
+	        }
+	        pstmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    closeConnection(conn);
+	    return maxPkVal;
+	}
+
+
 	/*
 	public DTO read(DTO dto, String dataToRead, String tableName) {
 		Connection conn = getConnection();
@@ -178,6 +200,11 @@ public class DAO {
 		int taskIndex = 41;
 		
 		DiaryDTO dto = new DiaryDTO(spaceCode, taskIndex);
+		
+		
+		//dto.setTaskIndex(dao.readMaxTIValueAt(dto, tableName));
+		
+		
 		//dto.setDDay(Date.valueOf(LocalDate.now()));
 		//dto.setTask("두 번째 insert");
 		//dto.setEmail("wjwj@nav.com");
@@ -199,8 +226,22 @@ public class DAO {
 			}
 		}
 		*/
-		
-		
+		/*
+		for(int i = 21 ; i<40 ; i++ ) {
+			taskIndex = 1;
+			DiaryDTO dto2 = new DiaryDTO(spaceCode, taskIndex);
+			dto2.setTaskIndex(dao.readMaxTIValueAt(dto, tableName)+1);
+			dto2.setDDay(Date.valueOf(LocalDate.now().plusDays(i)));
+			dto2.setTask( i+"번째 insert");
+			dto2.setEmail("wjwj" + i + "@nav.com");
+			dto2.setManager("정석"+i);
+			try {
+				dao.insert(dto2, tableName);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		*/
 		
 		
 		
@@ -213,7 +254,7 @@ public class DAO {
 		
 		//SELECT ㄱㄱ
 		
-		
+		/*
 		ResultSet rs = dao.readAll(tableName);
 		Vector<DiaryDTO> datas = new Vector<>();
 		try {
@@ -227,6 +268,7 @@ public class DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		*/
 		/*
 		try {
 			
@@ -249,6 +291,11 @@ public class DAO {
 		}
 		
 		*/
+		
+		//MAX taskIndex 번호 읽기 test
+		System.out.println(dao.readMaxTIValueAt(dto, tableName)); 
+		
+		
 	}
 	
 	
